@@ -39,7 +39,7 @@ class GameEngine
 {
 	private:
 		int turns;
-		bool won;
+		bool hasWon = false;
 		Card** deck;	// Initial deck
 		vector <Card*> hand;	// Player's hand
 		vector <Card*> table;	// Cards on table
@@ -62,6 +62,11 @@ class GameEngine
 
 		// Function to create cards
 		void createDeck();
+        void createInventionDeck();
+        void createHistoryDeck();
+        void createCompSciDeck();
+        void createVideoGameDeck();
+        void createPopDeck();
 
 		// Function that shuffles deck
 		void shuffleDeck();
