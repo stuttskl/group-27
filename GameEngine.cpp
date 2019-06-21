@@ -13,7 +13,6 @@ GameEngine::GameEngine()
 {
 	// First, set variables
 	setTurns(START_TURNS);	
-	setWon(false);
 
 	// Next, create deck
 	createDeck();
@@ -55,11 +54,6 @@ void GameEngine::setTurns(int turns)
 	this->turns = turns;
 }
 
-void GameEngine::setWon(bool won)
-{
-	this->won = won;
-}
-
 /******************************************************************************
 ** Description: Getters
 ******************************************************************************/
@@ -68,10 +62,6 @@ int GameEngine::getTurns()
 	return turns;
 }
 
-bool GameEngine::getWon()
-{
-	return won;
-}
 
 /******************************************************************************
 ** Description: Function that creates deck of cards.
