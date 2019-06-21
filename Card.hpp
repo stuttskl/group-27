@@ -26,6 +26,7 @@ class Card{
 			*right;
 	public:
 		Card(int year=0, int cardNum=0, string category="", string description="");
+		Card(const Card&);
 
 		// Setters
 		void setYear(int);
