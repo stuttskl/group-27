@@ -27,9 +27,9 @@ using std::vector;
 #include <bits/stdc++.h>
 using std::swap;
 
-//#include "Menu.hpp"
-
 #include "Card.hpp"
+
+//#include "Menu.hpp"
 
 const int INIT_CARDS=5;		// Initial card count -- should be 150 -- 5 for testing
 const int START_TURNS=20;	// Number turns start at
@@ -76,11 +76,24 @@ class GameEngine
 		// Function to run Game	
 		void runGame();
 
-		// Function that displays deck -- testing function
-		void displayDeck();
+		// Function that draws card from pile
+		Card* drawPile();
+
+		// Function that adds card to table at position
+		void addTable(Card*, int);
+		
+		// Functions that displays title and rules
+		void displayTitle();
+		void displayRules();
 
 		// Function that displays hand
 		void displayHand();
+
+		// Function that displays table cards
+		void displayTable();
+
+		// Function that displays deck -- testing function
+		void displayDeck();
 
 		// Function that displays pile -- testing function
 		void displayPile();

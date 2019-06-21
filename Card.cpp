@@ -21,6 +21,20 @@ Card::Card(int year, int cardNum, string category, string description)
 }
 
 /******************************************************************************
+** Description: Copy Constructor
+******************************************************************************/
+Card::Card(const Card &old_obj)
+{
+	setYear(old_obj.year);
+	setCardNum(old_obj.cardNum);
+	setCardPlace(old_obj.cardPlace);
+	setCategory(old_obj.category);
+	setDescription(old_obj.description);
+	setLeft(old_obj.left);
+	setRight(old_obj.right);
+}
+
+/******************************************************************************
 ** Description: Setters
 ******************************************************************************/
 void Card::setYear(int year)

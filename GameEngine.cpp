@@ -18,7 +18,8 @@ GameEngine::GameEngine()
 	// Next, create deck
 	createDeck();
 
-	// Display deck at first
+	// Display deck at first -- for testing
+	cout << "Deck before shuffle: " << endl;
 	displayDeck();
 
 	// Next, shuffle deck
@@ -29,6 +30,9 @@ GameEngine::GameEngine()
 
 	// Next, create pile from leftover deck
 	createPile();
+
+	// Next, create Menus
+//	createMenus();
 }
 
 /******************************************************************************
@@ -130,6 +134,14 @@ void GameEngine::createPile()
 }
 
 /******************************************************************************
+** Description: Function that creates menus.
+******************************************************************************/
+/*void GameEngine::createMenus()
+{
+	handMenu = new Menu(
+}
+*/
+/******************************************************************************
 ** Description: Function to run game
 ******************************************************************************/
 void GameEngine::runGame()
@@ -138,27 +150,77 @@ void GameEngine::runGame()
 	cout << "Deck: " << endl;
 	displayDeck();
 
-	// Test display hand
+	// First, display game title and rules
+	// Need to be implemented -- not written yet
+	displayTitle();	
+	displayRules();
+
+	// Next, display hand -- basic implementation for nwo
 	cout << "Hand: " << endl;
 	displayHand();
 
-	// Test display pile
-	cout << "Pile: " << endl;
-	displayPile();
+	// Next, draw card from pile, add to table, and display table
+	Card *drawn = drawPile();
+	addTable(drawn, 0); // Adds drawn card at position 0
+	cout << endl << "Cards on the table: " << endl;
+	displayTable();	
+
+	// Next, ask user which card they would like to play from hand 
 }
-	
+
 /******************************************************************************
-** Description: Function that displays deck - for testing
+** Description: Function that draws from pile.
 ******************************************************************************/
-void GameEngine::displayDeck()
+Card* GameEngine::drawPile()
 {
-	for(int i = 0; i < INIT_CARDS; i++)
-	{
-		cout << i+1 << ". ";
-		deck[i]->displayCard();
-		cout << endl;
-	}
+	// Store card on top of pile
+	Card *top = pile.front();
+	Card *copy = new Card(*top);
+	
+	// Display temp card
+	cout << "Card drawn from pile reads:" << endl;
+	top->displayCard();
 	cout << endl;
+
+	// Delete front of pile
+	pile.pop();
+
+	// Return stored card
+	return copy;
+}
+
+/******************************************************************************
+** Description: Function that adds card to cards on table at position.
+******************************************************************************/
+void GameEngine::addTable(Card* inCard, int pos)
+{
+	// If no cards yet on table
+	if(table.empty())
+	{
+		table.push_back(inCard);
+	}
+	else	// If there are cards already, use position
+	{
+		// Create iterator pointing to position
+		auto itPos = table.begin() + pos;
+
+		// Insert card at position
+		table.insert(itPos, inCard);
+	}
+}
+
+/******************************************************************************
+** Description: Function that displays game title.
+******************************************************************************/
+void GameEngine::displayTitle()
+{
+}
+
+/******************************************************************************
+** Description: Function that displays game rules.
+******************************************************************************/
+void GameEngine::displayRules()
+{
 }
 
 /******************************************************************************
@@ -170,6 +232,34 @@ void GameEngine::displayHand()
 	{
 		cout << i+1 << ". ";
 		hand[i]->displayCard();
+		cout << endl;
+	}
+	cout << endl;
+}
+
+/******************************************************************************
+** Description: Function that displays table
+******************************************************************************/
+void GameEngine::displayTable()
+{
+	for(unsigned i = 0; i < table.size(); i++)
+	{
+		cout << i+1 << ". ";
+		table[i]->displayCard();
+		cout << endl;
+	}
+	cout << endl;
+}
+
+/******************************************************************************
+** Description: Function that displays deck - for testing
+******************************************************************************/
+void GameEngine::displayDeck()
+{
+	for(int i = 0; i < INIT_CARDS; i++)
+	{
+		cout << i+1 << ". ";
+		deck[i]->displayCard();
 		cout << endl;
 	}
 	cout << endl;
