@@ -24,23 +24,22 @@ using std::stack;
 #include <vector>
 using std::vector;
 
-//#include <bits/stdc++.h>
 using std::swap;
 
 #include "Card.hpp"
 
 //#include "Menu.hpp"
 
-const int INIT_CARDS=5;		// Initial card count -- should be 150 -- 5 for testing
+const int INIT_CARDS=150;		// Initial card count
 const int START_TURNS=20;	// Number turns start at
-const int INIT_HAND=2;		// Initial card count in hand -- should be 15 -- 2 for testing
+const int INIT_HAND=15;		// Initial card count in hand -- should be 15 -- 2 for testing
 
 // Game Engine Class declaration
 class GameEngine
 {
 	private:
 		int turns;
-		bool hasWon = false;
+		bool won;
 		Card** deck;	// Initial deck
 		vector <Card*> hand;	// Player's hand
 		vector <Card*> table;	// Cards on table
