@@ -24,7 +24,7 @@ using std::stack;
 #include <vector>
 using std::vector;
 
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
 using std::swap;
 
 #include "Card.hpp"
@@ -40,7 +40,7 @@ class GameEngine
 {
 	private:
 		int turns;
-		bool won;
+		bool hasWon = false;
 		Card** deck;	// Initial deck
 		vector <Card*> hand;	// Player's hand
 		vector <Card*> table;	// Cards on table
