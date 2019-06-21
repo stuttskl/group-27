@@ -24,16 +24,15 @@ using std::stack;
 #include <vector>
 using std::vector;
 
-//#include <bits/stdc++.h>
 using std::swap;
 
 #include "Card.hpp"
 
 //#include "Menu.hpp"
 
-const int INIT_CARDS=5;		// Initial card count -- should be 150 -- 5 for testing
+const int INIT_CARDS=150;		// Initial card count
 const int START_TURNS=20;	// Number turns start at
-const int INIT_HAND=2;		// Initial card count in hand -- should be 15 -- 2 for testing
+const int INIT_HAND=15;		// Initial card count in hand -- should be 15 -- 2 for testing
 
 // Game Engine Class declaration
 class GameEngine
@@ -63,6 +62,11 @@ class GameEngine
 
 		// Function to create cards
 		void createDeck();
+        void createInventionDeck();
+        void createHistoryDeck();
+        void createCompSciDeck();
+        void createVideoGameDeck();
+        void createPopDeck();
 
 		// Function that shuffles deck
 		void shuffleDeck();
