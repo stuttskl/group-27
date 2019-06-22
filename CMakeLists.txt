@@ -10,4 +10,4 @@ add_executable(group_27
         Card.hpp
         GameEngine.cpp
         GameEngine.hpp
-        main.cpp)
+        main.cpp inputValid.cpp inputValid.hpp)
