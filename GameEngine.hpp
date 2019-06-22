@@ -64,7 +64,7 @@ class GameEngine
 		GameEngine();
 
 		// Welcome menu
-		void welcomeMenu();
+		int welcomeMenu();
 
 		// Destructor
 		~GameEngine();

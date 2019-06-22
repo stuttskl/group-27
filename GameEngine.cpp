@@ -273,7 +273,8 @@ void GameEngine::createInventionDeck() {
 /******************************************************************************
  ** Description: Function that creates Historical Events deck.
  ******************************************************************************/
-void GameEngine::createHistoryDeck() {
+void GameEngine::createHistoryDeck()
+{
     INIT_CARDS = 25;
     deck = new Card* [INIT_CARDS];
         
@@ -313,7 +314,8 @@ void GameEngine::createHistoryDeck() {
 /******************************************************************************
  ** Description: Function that creates Pop Culture deck.
  ******************************************************************************/
-void GameEngine::createPopDeck() {
+void GameEngine::createPopDeck()
+{
     INIT_CARDS = 50;
     deck = new Card* [INIT_CARDS];
     
@@ -378,7 +380,8 @@ void GameEngine::createPopDeck() {
 /******************************************************************************
  ** Description: Function that creates Video Games deck.
  ******************************************************************************/
-void GameEngine::createVideoGamesDeck() {
+void GameEngine::createVideoGamesDeck()
+{
     INIT_CARDS = 25;
     deck = new Card* [INIT_CARDS];
     
@@ -418,7 +421,8 @@ void GameEngine::createVideoGamesDeck() {
 /******************************************************************************
  ** Description: Function that creates Computer Science History deck.
  ******************************************************************************/
-void GameEngine::createCompSciDeck() {
+void GameEngine::createCompSciDeck()
+{
     INIT_CARDS = 25;
     deck = new Card* [INIT_CARDS];
     
@@ -526,9 +530,15 @@ void GameEngine::runGame()
 	displayTitle();
     
 	// add welcome menu
-	//welcomeMenu();
-	displayRules();
-    
+//	int selection = welcomeMenu();
+//	while (selection <= 0 || selection > 2)
+//    {
+//	    cout << "Please make a valid selection." << endl;
+//	    selection = welcomeMenu();
+//    }
+//	if (selection == 1) {
+    displayRules();
+
     std::cout << "Please choose your deck:\n" << std::endl;
     std::cout << "1. Inventions deck" << std::endl;
     std::cout << "2. Historical Events deck" << std::endl;
@@ -538,122 +548,98 @@ void GameEngine::runGame()
     std::cout << "6. Full deck (all categories)" << std::endl;
     int getDeck;
     std::cin >> getDeck;
-    
+
     // Create Inventions deck
     if (getDeck == 1)
         createInventionDeck();
-    
-    // Create Historical Events deck
+
+        // Create Historical Events deck
     else if (getDeck == 2)
         createHistoryDeck();
-    
-    // Create Comp Sci History deck
+
+        // Create Comp Sci History deck
     else if (getDeck == 3)
         createCompSciDeck();
-    
-    // Create Video Games deck
+
+        // Create Video Games deck
     else if (getDeck == 4)
         createVideoGamesDeck();
-    
-    // Create Pop Culture deck
+
+        // Create Pop Culture deck
     else if (getDeck == 5)
         createPopDeck();
-    
-    // Create full deck
+
+        // Create full deck
     else
         createDeck();
-    
+
     // Next, shuffle deck
     shuffleDeck();
-    
+
     cout << "Would you like to play on easy, medium, or hard mode?" << endl;
     cout << "1. Easy (7 cards and 12 turns)" << endl;
     cout << "2. Medium (12 cards and 17 turns)" << endl;
     cout << "3. Hard (15 cards and 20 turns)" << endl;
     int modeChoice;
     std::cin >> modeChoice;
-    
+
     // Next, deal hand
     dealHand(modeChoice);
-    
+
     // Next, create pile from leftover deck
     createPile();
 
-	// Next, draw card from pile and add to table
-	Card *drawn = drawPile(1);	// show situation #1 script
-	addTable(drawn, 0); // Adds drawn card at position 0
-	
-	// Loop until user wins or turns == 0
-	do
-	{
-		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
+    // Next, draw card from pile and add to table
+    Card *drawn = drawPile(1);    // show situation #1 script
+    addTable(drawn, 0); // Adds drawn card at position 0
 
-		// Next, display table
-		displayTable();	
-		pressEnter();
-		
-		// Next, display hand -- basic implementation for now
-		displayHand();
+    // Loop until user wins or turns == 0
+    do
+    {
+        cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
 
-		// Next, draw card from pile and add to table
-		Card *drawn = drawPile(1);	// show situation #1 script
-		addTable(drawn, 0); // Adds drawn card at position 0
+        // Next, display table
+        displayTable();
+        pressEnter();
 
-		// Loop until user wins or turns == 0
-		do
-		{
-			cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
-			// Next, display table
-			displayTable();
-			pressEnter();
+        // Next, display hand -- basic implementation for now
+        displayHand();
 
-			// Next, display hand -- basic implementation for now
-			displayHand();
+        // Next, play hand -- returns card player chooses to play
+        Card *cardInPlay = playHand();
 
-			// Next, play hand -- returns card player chooses to play
-			Card *cardInPlay = playHand();
+        // Next, display table again and ask user where to place card
+        displayTable();
+        Card *returned = playTable(cardInPlay);
 
-			// Next, display table again and ask user where to place card
-			displayTable();
-			Card *returned = playTable(cardInPlay);
+        // Determine if a card was drawn from table or not
+        if(returned == NULL)
+        {
+            // Do nothing, continue to end of do, while loop
+        }
+        else
+        {
+            // Card was drawn so add card to hand
+            hand.push_back(returned);
+        }
 
-			// Determine if a card was drawn from table or not
-			if(returned == NULL)
-			{
-				// Do nothing, continue to end of do, while loop
-			}
-			else
-			{
-				// Card was drawn so add card to hand
-				hand.push_back(returned);
-			}
+        // decrement turns
+        turns--;
 
-
-			// decrement turns
-			turns--;
-
-			// Determine if player won by not having any cards
-			if(hand.size() <= 0)
-			{
-				cout << "\n\nYOU DO NOT HAVE ANY MORE CARDS IN YOUR HAND.\n\n";
-				cout << "\n\nYOU HAVE WON!!!\n\n";
-				hasWon = 1;
-			}
-		}
-		while((turns > 0) && (hasWon == 0));
-
-		// If user lost
-		if(hasWon == 0)
-		{
-			cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
-		}
-	}
-	if (selection == 2)
-	{
-		cout << "QUIT " << endl;
-	}
-
-
+        // Determine if player won by not having any cards
+        if(hand.size() <= 0)
+        {
+            cout << "\n\nYOU DO NOT HAVE ANY MORE CARDS IN YOUR HAND.\n\n";
+            cout << "\n\nYOU HAVE WON!!!\n\n";
+            hasWon = 1;
+        }
+    }
+    while((turns > 0) && (hasWon == 0));
+        // If user lost
+        if (hasWon == 0)
+        {
+            cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
+        }
 
 }
 
