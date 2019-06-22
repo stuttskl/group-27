@@ -79,12 +79,12 @@ class GameEngine
 		bool getWon();
 
 		// Function to create cards
-        void createDeck();
-        void createInventionDeck();
-        void createPopDeck();
-        void createHistoryDeck();
-        void createVideoGamesDeck();
-        void createCompSciDeck();
+    void createDeck();
+    void createInventionDeck();
+    void createPopDeck();
+    void createHistoryDeck();
+    void createVideoGamesDeck();
+    void createCompSciDeck();
 
 		// Function that shuffles deck
 		void shuffleDeck();
