@@ -6,6 +6,7 @@
 ******************************************************************************/
 #include "GameEngine.hpp"
 #include "inputValid.hpp"
+#include <limits>
 
 /******************************************************************************
 ** Description: Constructor
@@ -290,67 +291,93 @@ void GameEngine::runGame()
 	// Need to be implemented -- not written yet
 	displayTitle();
 	// add welcome menu
-	welcomeMenu();
-	displayRules();
-
-	// Next, draw card from pile and add to table
-	Card *drawn = drawPile(1);	// show situation #1 script
-	addTable(drawn, 0); // Adds drawn card at position 0
-	
-	// Loop until user wins or turns == 0
-	do
+	int selection = welcomeMenu();
+	if (selection == 1)
 	{
-		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
-		// Next, display table
-		displayTable();	
-		pressEnter();
-		
-		// Next, display hand -- basic implementation for now
-		displayHand();
+		displayRules();
 
-		// Next, play hand -- returns card player chooses to play
-		Card *cardInPlay = playHand();
+		// Next, draw card from pile and add to table
+		Card *drawn = drawPile(1);	// show situation #1 script
+		addTable(drawn, 0); // Adds drawn card at position 0
 
-		// Next, display table again and ask user where to place card
-		displayTable();
-		Card *returned = playTable(cardInPlay);
-
-		// Determine if a card was drawn from table or not
-		if(returned == NULL)
+		// Loop until user wins or turns == 0
+		do
 		{
-			// Do nothing, continue to end of do, while loop
+			cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
+			// Next, display table
+			displayTable();
+			pressEnter();
+
+			// Next, display hand -- basic implementation for now
+			displayHand();
+
+			// Next, play hand -- returns card player chooses to play
+			Card *cardInPlay = playHand();
+
+			// Next, display table again and ask user where to place card
+			displayTable();
+			Card *returned = playTable(cardInPlay);
+
+			// Determine if a card was drawn from table or not
+			if(returned == NULL)
+			{
+				// Do nothing, continue to end of do, while loop
+			}
+			else
+			{
+				// Card was drawn so add card to hand
+				hand.push_back(returned);
+			}
+
+
+			// decrement turns
+			turns--;
+
+			// Determine if player won by not having any cards
+			if(hand.size() <= 0)
+			{
+				cout << "\n\nYOU DO NOT HAVE ANY MORE CARDS IN YOUR HAND.\n\n";
+				cout << "\n\nYOU HAVE WON!!!\n\n";
+				hasWon = 1;
+			}
 		}
-		else
-		{
-			// Card was drawn so add card to hand
-			hand.push_back(returned);
-		}
+		while((turns > 0) && (hasWon == 0));
 
-		// decrement turns
-		turns--;
-
-		// Determine if player won by not having any cards
-		if(hand.size() <= 0)
+		// If user lost
+		if(hasWon == 0)
 		{
-			cout << "\n\nYOU DO NOT HAVE ANY MORE CARDS IN YOUR HAND.\n\n";
-			cout << "\n\nYOU HAVE WON!!!\n\n";
-			hasWon = 1;
+			cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
 		}
 	}
-	while((turns > 0) && (hasWon == 0));
-
-	// If user lost
-	if(hasWon == 0)
+	if (selection == 2)
 	{
-		cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
+		cout << "QUIT " << endl;
 	}
+
+
+
 }
 
+/******************************************************************************
+** Description: Function to run game
+******************************************************************************/
 int GameEngine::welcomeMenu()
 {
-    cout << "welcome please make your selection." << endl;
-    cout << "1. Play." << endl;
-    cout << "2. Quit." << endl;
+	cout << "\t\t\tWELCOME. PLEASE MAKE YOUR SELECTION TO BEGIN THE GAME." << endl;
+
+
+    cout << "\t\t\t\t\t1. PLAY." << endl;
+    cout << "\t\t\t\t\t2. QUIT." << endl;
+
+	int selection = getIntInput();
+	while (selection <= 0 || selection > 2)
+	{
+		cout << "Please enter a valid selection." << endl;
+		selection = getIntInput();
+	}
+
+	return selection;
+
 }
 
 /******************************************************************************
@@ -414,10 +441,7 @@ void GameEngine::pressEnter()
 {
 	// Have user press enter to continue
 	cout << "                                 Press Enter to Continue";
-	getchar();
-//	cin.ignore();
-
-	cout << endl << endl;
+	cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 }
 
 /******************************************************************************
@@ -426,19 +450,11 @@ void GameEngine::pressEnter()
 Card* GameEngine::playHand()
 {
 	string cardToPlay = "";
-//    int cardToPlay = 0;
-	bool inputValid = false;	
+	bool inputValid = false;
 
 	// Ask user to choose card
 	cout << "\t\t\t    WHICH CARD WOULD YOU LIKE TO PLAY?" << endl;
 
-//    cardToPlay = getIntInput();
-//    while (cardToPlay <= 0 || cardToPlay > hand.size())
-//    {
-//        cout << "Please make a valid card selection." << endl;
-//        cardToPlay = getIntInput();
-//    }
-	
 	// Loop until correct input
 	do
 	{
@@ -578,21 +594,21 @@ bool GameEngine::validateInput(string pick, int min, unsigned max)
 	if(pick.empty())
 	{
 		cout << "Input Error. Try again." << endl;
-		return 0;
+		return false;
 	}
 
 	// Go through characters of string to determine if integer
 	for(unsigned int i = 0; i < pick.size(); i++)
 	{
 		char temp = ' ';	// temp holder for chars in string
-		
+
 		temp = pick.at(i);
 
 		// If not a number
 		if(!isdigit(temp))
 		{
 			cout << "Input Error. Try again." << endl;
-			return 0;
+			return false;
 		}
 	}
 
@@ -601,17 +617,17 @@ bool GameEngine::validateInput(string pick, int min, unsigned max)
 
 	// static_cast max into int
 	int maxCast = static_cast<int>(max);
-		
+
 	// Now, see if data is not between min and max
 	if(!((tempInt >= min) && (tempInt <= maxCast)))
 	{
 		cout << "Input Error. Try again." << endl;
-		return 0;
+		return false;
 	}
 
 	// Data is valid, so assign tempInt to member variable choice
 	choice = tempInt;
-	return 1;
+	return true;
 }
 
 /******************************************************************************
@@ -620,7 +636,6 @@ bool GameEngine::validateInput(string pick, int min, unsigned max)
 void GameEngine::displayTitle()
 {
 	cout << TITLE;
-	pressEnter();
 }
 
 /******************************************************************************
