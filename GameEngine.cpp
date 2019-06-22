@@ -16,23 +16,6 @@ GameEngine::GameEngine()
 	// First, set variables
 	setTurns(START_TURNS);	
 	setChoice(0);
-
-	// Next, create deck
-	createDeck();
-
-	// Display deck at first -- for testing
-//	cout << "Deck before shuffle: " << endl;
-//	displayDeck();
-
-	// Next, shuffle deck
-	shuffleDeck();
-
-	// Next, deal hand
-	dealHand();
-
-	// Next, create pile from leftover deck
-	createPile();
-
 }
 
 /******************************************************************************
@@ -237,6 +220,231 @@ void GameEngine::createDeck()
 	deck[147] = new Card(1928, 147, "Pop Culture", "Walt Disney develops the character of Mickey Mouse.");
 	deck[148] = new Card(1969, 148, "Pop Culture", "David Bowie releases 'Space Oddity.'");
 	deck[149] = new Card(1936, 149, "Pop Culture", "Joe DiMaggio makes his major league debut.");
+    }
+
+/******************************************************************************
+ ** Description: Function that creates Invention deck.
+ ******************************************************************************/
+void GameEngine::createInventionDeck() {
+    INIT_CARDS = 25;
+    deck = new Card* [INIT_CARDS];
+    
+    // Initialize all to NULL
+    for(int i = 0; i < INIT_CARDS; i++)
+    {
+        deck[i] = NULL;
+    }
+    
+    deck[0] = new Card(-3500, 0, "Inventions", "Domestication of the horse.");
+    deck[1] = new Card(-3200, 1, "Inventions", "Sailing is invented in ancient Egypt.");
+    deck[2] = new Card(-3000, 2, "Inventions", "Papyrus -- the first paper -- is invented in ancient Egypt.");
+    deck[3] = new Card(-2000, 3, "Inventions", "The chariot is invented in Rome.");
+    deck[4] = new Card(-1750, 4, "Inventions", "Thank the Phoenicians! They invented a universal alphabet.");
+    deck[5] = new Card(-500, 5, "Inventions", "Cast iron is invented in China.");
+    deck[6] = new Card(50, 6, "Inventions", "The first vending machine is invented.");
+    deck[7] = new Card(1960, 7, "Inventions", "Maiman invents the first functioning laser.");
+    deck[8] = new Card(118, 8, "Inventions", "Appearance of the earliest wheelbarrow, found in a Chinese tomb.");
+    deck[9] = new Card(300, 9, "Inventions", "Earliest evidence of the fishing reel.");
+    deck[10] = new Card(589, 10, "Inventions", "Toilet paper! Imagine living without that...");
+    deck[11] = new Card(650, 11, "Inventions", "The windmill is created in Persia.");
+    deck[12] = new Card(800, 12, "Inventions", "Gunpowder is created in China.");
+    deck[13] = new Card(850, 13, "Inventions", "Algebra is developed in Syria.");
+    deck[14] = new Card(875, 14, "Inventions", "The concept of zero as a number is implemented in India.");
+    deck[15] = new Card(975, 15, "Inventions", "Fireworks are invented in China.");
+    deck[16] = new Card(1050, 16, "Inventions", "The first ambulances appear in Palestine and Lebanon.");
+    deck[17] = new Card(1286, 17, "Inventions", "Eyeglasses are invented in Italy.");
+    deck[18] = new Card(1439, 18, "Inventions", "Gutenberg invents the printing press.");
+    deck[19] = new Card(1577, 19, "Inventions", "Newspaper is invented in Korea.");
+    deck[20] = new Card(1709, 20, "Inventions", "Cristofori crafts the first piano.");
+    deck[21] = new Card(1755, 21, "Inventions", "Cullen invents the first refrigerator.");
+    deck[22] = new Card(1877, 22, "Inventions", "Bell receives a patent for his telephone.");
+    deck[23] = new Card(1888, 23, "Inventions", "Loud invents the ballpoint pen.");
+    deck[24] = new Card(1945, 24, "Inventions", "The atomic bomb is developed as part of the Manhattan Project.");
+}
+
+/******************************************************************************
+ ** Description: Function that creates Historical Events deck.
+ ******************************************************************************/
+void GameEngine::createHistoryDeck() {
+    INIT_CARDS = 25;
+    deck = new Card* [INIT_CARDS];
+        
+    // Initialize all to NULL
+    for(int i = 0; i < INIT_CARDS; i++)
+    {
+        deck[i] = NULL;
+    }
+    
+    deck[0] = new Card(-20000, 0, "History", "Earliest evidence of humans executing control over crops.");
+    deck[1] = new Card(-8000, 1, "History", "By this year, farming is fully established along the Nile.");
+    deck[2] = new Card(-5400, 2, "History", "The first cities emerge in Mesopotamia.");
+    deck[3] = new Card(-2560, 3, "History", "Building of the Great Pyramid of Giza.");
+    deck[4] = new Card(-800, 4, "History", "The rise of ancient Greek civilization.");
+    deck[5] = new Card(-753, 5, "History", "The rise of ancient Roman civilization.");
+    deck[6] = new Card(-563, 6, "History", "The life of Buddha and birth of Buddhism.");
+    deck[7] = new Card(-336, 7, "History", "Alexander the Great reigns and creates an immense empire.");
+    deck[8] = new Card(-221, 8, "History", "China unifies under Emperor Huang, who begins building the Great Wall.");
+    deck[9] = new Card(50, 9, "History", "The earliest known Christian text is written.");
+    deck[10] = new Card(632, 10, "History", "Completion of the Qu'ran and birth of Islam.");
+    deck[11] = new Card(800, 11, "History", "Charlemagne is crowned as the First Holy Roman Emperor.");
+    deck[12] = new Card(1066, 12, "History", "William the Conqueror conquers England.");
+    deck[13] = new Card(1095, 13, "History", "The First Crusade.");
+    deck[14] = new Card(1026, 14, "History", "Genghis Khan establishes a vast Mongol empire.");
+    deck[15] = new Card(1215, 15, "History", "The Magna Carta is signed by King John.");
+    deck[16] = new Card(1325, 16, "History", "Rise of Aztec civilization.");
+    deck[17] = new Card(1347, 17, "History", "The Black Death devastates Europe.");
+    deck[18] = new Card(1350, 18, "History", "The Renaissance begins in Europe.");
+    deck[19] = new Card(1492, 19, "History", "Columbus lands in the West Indes and claims the land for Spain.");
+    deck[20] = new Card(1517, 20, "History", "Luther's 95 Theses start the Protestant Reformation.");
+    deck[21] = new Card(1607, 21, "History", "Jamestown becomes the first permanent English colony in America.");
+    deck[22] = new Card(1632, 22, "History", "The Taj Mahal is built.");
+    deck[23] = new Card(1776, 23, "History", "The Declaration of Independence is signed.");
+    deck[24] = new Card(1815, 24, "History", "The Napoleonic Wars end when Napoleon is exiled to St. Helena.");
+}
+
+/******************************************************************************
+ ** Description: Function that creates Pop Culture deck.
+ ******************************************************************************/
+void GameEngine::createPopDeck() {
+    INIT_CARDS = 50;
+    deck = new Card* [INIT_CARDS];
+    
+    // Initialize all to NULL
+    for(int i = 0; i < INIT_CARDS; i++)
+    {
+        deck[i] = NULL;
+    }
+    
+    deck[0] = new Card(2009, 0, "Pop Culture", "Lady Gaga's debut single 'Just Dance' hits #1 on the Billboard Hot 100.");
+    deck[1] = new Card(1994, 1, "Pop Culture", "'Friends', an American television sitcom, first airs on NBC.");
+    deck[2] = new Card(1992, 2, "Pop Culture", "Radiohead, an English rock band, releases their debut single 'Creep.'");
+    deck[3] = new Card(2002, 3, "Pop Culture", "Detroit takes Hollywood when '8 Mile,' a film starring Eminem, premieres.");
+    deck[4] = new Card(2012, 4, "Pop Culture", "Disney acquires Lucasfilm and gains ownership of Star Wars. ");
+    deck[5] = new Card(2011, 5, "Pop Culture", "'Game of Thrones' premieres on HBO.");
+    deck[6] = new Card(2014, 6, "Pop Culture", "Kamala Khan debuts as Ms. Marvel, the first Muslim Marvel character.");
+    deck[7] = new Card(2015, 7, "Pop Culture", "Star Wars returns with 'The Force Awakens.'");
+    deck[8] = new Card(1973, 8, "Pop Culture", "Black Panther, the first black superhero, receives his first starring feature.");
+    deck[9] = new Card(1966, 9, "Pop Culture", "The first 'Star Trek' series, simply called 'Star Trek,' debuts on NBC.");
+    deck[10] = new Card(1930, 10, "Pop Culture", "The Academy Awards ceremony is first broadcast on radio.");
+    deck[11] = new Card(1986, 11, "Pop Culture", "'Watchmen,' an American superhero series, is published by DC comics.");
+    deck[12] = new Card(1949, 12, "Pop Culture", "The Lego Group begins manufacturing a line of interlocking toy bricks.");
+    deck[13] = new Card(1941, 13, "Pop Culture", "Archibald Andrews debuts with Betty and Jughead in Pep Comics #22.");
+    deck[14] = new Card(2017, 14, "Pop Culture", "Jodie Whittaker becomes the first female Doctor on 'Doctor Who.'");
+    deck[15] = new Card(2016, 15, "Pop Culture", "'Stranger Things,' a nostalgic trip to the '80s, premieres on Netflix.");
+    deck[16] = new Card(1979, 16, "Pop Culture", "'Alien,' a sci-fi horror film directed by Ridley Scott, is released.");
+    deck[17] = new Card(1981, 17, "Pop Culture", "'Raiders of the Lost Ark, the first of the Indiana Jones series, premieres.");
+    deck[18] = new Card(1963, 18, "Pop Culture", "The X-men first appear in 'The X-Men' #1.");
+    deck[19] = new Card(1982, 19, "Pop Culture", "'Blade Runner,' a sci-fi noir film directed by Ridley Scott, premieres.");
+    deck[20] = new Card(1984, 20, "Pop Culture", "'Ghostbusters,' an American fantasy comedy film, is released.");
+    deck[21] = new Card(1997, 21, "Pop Culture", "The first 'Harry Potter' book is released.");
+    deck[22] = new Card(2013, 22, "Pop Culture", "'Rick and Morty,' an adult sci-fi animated series, premieres.");
+    deck[23] = new Card(1937, 23, "Pop Culture", "'The Hobbit,' or 'There and Back Again,' is published to critical acclaim.");
+    deck[24] = new Card(1985, 24, "Pop Culture", "Hayao Miyazaki co-founds Studio Ghibli.");
+    deck[25] = new Card(1856, 25, "Pop Culture", "Burberry, beloved for its tailored trench coats, is founded.");
+    deck[26] = new Card(1984, 26, "Pop Culture", "'Akira,' a Japanese animated post-apocalyptic cyberpunk film, premieres.");
+    deck[27] = new Card(1990, 27, "Pop Culture", "'Ice Ice Baby' becomes the first hip-hop single to top the Billboard Hot 100.");
+    deck[28] = new Card(1998, 28, "Pop Culture", "One of the greatest plays in NBA History: Michael Jordan, Game 6.");
+    deck[29] = new Card(1968, 29, "Pop Culture", "Stanley Kubrick's '2001: A Space Odyssey' is released.");
+    deck[30] = new Card(1989, 30, "Pop Culture", "Nine Inch Nails's first album, 'Pretty Hate Machine,' debuts.");
+    deck[31] = new Card(1932, 31, "Pop Culture", "Shirley Temple begins her film career at 3 years old.");
+    deck[32] = new Card(1995, 32, "Pop Culture", "NSYNC, one of the best-selling American boy bands, is formed.");
+    deck[33] = new Card(1972, 33, "Pop Culture", "WWF Champion Wrestling, the original TV show of the WWF, first airs.");
+    deck[34] = new Card(1971, 34, "Pop Culture", "Michael Jackson, the 'King of Pop,' begins his solo career.");
+    deck[35] = new Card(1956, 35, "Pop Culture", "Elvis Presley first records with RCA, producing 'Heart Break Hotel.'");
+    deck[36] = new Card(1919, 36, "Pop Culture", "Babe Ruth (the 'Bambino') breaks the MLB single-season home run record.");
+    deck[37] = new Card(1962, 37, "Pop Culture", "Ringo Starr joins the Beatles and they release their first hit, 'Love Me Do.'");
+    deck[38] = new Card(1964, 38, "Pop Culture", "Muhammad Ali wins the world heavyweight championship at the age of 22.");
+    deck[39] = new Card(1941, 39, "Pop Culture", "Bob Dylan is born.");
+    deck[40] = new Card(1946, 40, "Pop Culture", "Norma Jean signs with Fox and changes her name to Marilyn Monroe.");
+    deck[41] = new Card(1931, 41, "Pop Culture", "Al Capone -- aka 'Scarface' -- is arrested and prosecuted for tax evasion.");
+    deck[42] = new Card(1921, 42, "Pop Culture", "Charlie Chaplin's first feature film, 'The Kid,' is released.");
+    deck[43] = new Card(1972, 43, "Pop Culture", "'The Godfather' is released.");
+    deck[44] = new Card(1953, 44, "Pop Culture", "Singer Frank Sinatra wins an Academy Award for 'From Here to Eternity.'");
+    deck[45] = new Card(1958, 45, "Pop Culture", "Hitchcock's 'Vertigo' is released.");
+    deck[46] = new Card(1954, 46, "Pop Culture", "'The Tonight Show,' the world's longest running talk show, premieres.");
+    deck[47] = new Card(1928, 47, "Pop Culture", "Walt Disney develops the character of Mickey Mouse.");
+    deck[48] = new Card(1969, 48, "Pop Culture", "David Bowie releases 'Space Oddity.'");
+    deck[49] = new Card(1936, 49, "Pop Culture", "Joe DiMaggio makes his major league debut.");
+}
+
+/******************************************************************************
+ ** Description: Function that creates Video Games deck.
+ ******************************************************************************/
+void GameEngine::createVideoGamesDeck() {
+    INIT_CARDS = 25;
+    deck = new Card* [INIT_CARDS];
+    
+    // Initialize all to NULL
+    for(int i = 0; i < INIT_CARDS; i++)
+    {
+        deck[i] = NULL;
+    }
+ 
+    deck[0] = new Card(1972, 0, "Video Games", "Magnavox introduces the Odyssey, the first home video game system.");
+    deck[1] = new Card(1985, 1, "Video Games", "Nintendo releases the NES, reviving the video game industry.");
+    deck[2] = new Card(1950, 2, "Video Games", "Turing and Champernowne create the earliest known chess program.");
+    deck[3] = new Card(1977, 3, "Video Games", "The Atari Video Computer System features removable cartridges.");
+    deck[4] = new Card(1952, 4, "Video Games", "A checkers program and a tic-tac-toe program become the first games to use a monitor.");
+    deck[5] = new Card(1958, 5, "Video Games", "'Tennis for Two' is the first game created solely for entertainment.");
+    deck[6] = new Card(1961, 6, "Video Games", "MIT students create 'Spacewar!', the first widespread computer game.");
+    deck[7] = new Card(1978, 7, "Video Games", "'Space Invaders' is released.");
+    deck[8] = new Card(1980, 8, "Video Games", "'Pac-Man' is released.");
+    deck[9] = new Card(1983, 9, "Video Games", "The video game crash abruptly ends the second generation of consoles.");
+    deck[10] = new Card(1983, 10, "Video Games", "'Snipes' is the first network game written for personal computers.");
+    deck[11] = new Card(1993, 11, "Video Games", "DOOM is released.");
+    deck[12] = new Card(1979, 12, "Video Games", "Microvision becomes the first handheld system to use cartridges.");
+    deck[13] = new Card(1987, 13, "Video Games", "A 16-bit generation of consoles begins.");
+    deck[14] = new Card(1990, 14, "Video Games", "The SNES is released.");
+    deck[15] = new Card(1991, 15, "Video Games", "SEGA releases 'Sonic the Hedgehog,' beginning the console war.");
+    deck[16] = new Card(1989, 16, "Video Games", "Release of Nintendo's Game Boy.");
+    deck[17] = new Card(1994, 17, "Video Games", "Video games are now assigned ESRB ratings.");
+    deck[18] = new Card(1991, 18, "Video Games", "'Street Fighter II' revives the arcade industry.");
+    deck[19] = new Card(1984, 19, "Video Games", "'Tetris' is released.");
+    deck[20] = new Card(1995, 20, "Video Games", "Sony's PlayStation becomes the industry leader.");
+    deck[21] = new Card(2001, 21, "Video Games", "Microsoft releases the Xbox.");
+    deck[22] = new Card(2010, 22, "Video Games", "The Xbox 360 standardizes cloud gaming.");
+    deck[23] = new Card(2008, 23, "Video Games", "Social network games gain mainstream popularity.");
+    deck[24] = new Card(1971, 24, "Video Games", "'Computer Space,' the first commercial arcade game, is introduced.");
+}
+
+/******************************************************************************
+ ** Description: Function that creates Computer Science History deck.
+ ******************************************************************************/
+void GameEngine::createCompSciDeck() {
+    INIT_CARDS = 25;
+    deck = new Card* [INIT_CARDS];
+    
+    // Initialize all to NULL
+    for(int i = 0; i < INIT_CARDS; i++)
+    {
+        deck[i] = NULL;
+    }
+    
+    deck[0] = new Card(1848, 0, "Computer Science", "Boolean algebra is invented by George Boole.");
+    deck[1] = new Card(1911, 1, "Computer Science", "IBM is formed.");
+    deck[2] = new Card(1937, 2, "Computer Science", "Alan Turing develops the concept of a theoretical computing machine.");
+    deck[3] = new Card(1954, 3, "Computer Science", "The FORTRAN programming language is developed at IBM.");
+    deck[4] = new Card(1963, 4, "Computer Science", "ASCII is developed to standardize data exchange among computers.");
+    deck[5] = new Card(1971, 5, "Computer Science", "Email is invented.");
+    deck[6] = new Card(1972, 6, "Computer Science", "Atari releases Pong.");
+    deck[7] = new Card(1975, 7, "Computer Science", "Microsoft is founded by Bill Gates and Paul Allen.");
+    deck[8] = new Card(1976, 8, "Computer Science", "Apple Computer is founded by Steve Wozniak and Steve Jobs.");
+    deck[9] = new Card(1945, 9, "Computer Science", "The term 'computer bug' is first used by Grace Hopper.");
+    deck[10] = new Card(1991, 10, "Computer Science", "The World Wide Web is launched to the public.");
+    deck[11] = new Card(1968, 11, "Computer Science", "DARPA creates ARPAnet, the first operational computer network.");
+    deck[12] = new Card(1995, 12, "Computer Science", "The Java programming language is introduced.");
+    deck[13] = new Card(1993, 13, "Computer Science", "Creation of Mosaic, the first popular web browser.");
+    deck[14] = new Card(1972, 14, "Computer Science", "The C programming language is released.");
+    deck[15] = new Card(1947, 15, "Computer Science", "The transistor is created at Bell Labs");
+    deck[16] = new Card(-87, 16, "Computer Science", "The earliest known analog computer is developed in ancient Greece");
+    deck[17] = new Card(2005, 17, "Computer Science", "Linus Torvalds creates git.");
+    deck[18] = new Card(1999, 18, "Computer Science", "Wireless internet (Wi-Fi) is standardized.");
+    deck[19] = new Card(2007, 19, "Computer Science", "Apple releases the very first iPhone.");
+    deck[20] = new Card(1703, 20, "Computer Science", "Liebnitz introduces the binary number system.");
+    deck[21] = new Card(1991, 21, "Computer Science", "The Python programming language is released.");
+    deck[22] = new Card(1971, 22, "Computer Science", "The first personal computer is sold in the USA.");
+    deck[23] = new Card(1822, 23, "Computer Science", "Babbage begins building the first mechanical computer.");
+    deck[24] = new Card(1843, 24, "Computer Science", "Ada Lovelace develops the first computer algorithm.");
 }
 
 /******************************************************************************
@@ -291,10 +499,66 @@ void GameEngine::runGame()
 	// Need to be implemented -- not written yet
 	displayTitle();
 	// add welcome menu
-	int selection = welcomeMenu();
-	if (selection == 1)
+	welcomeMenu();
+	displayRules();
+    
+    std::cout << "1. Inventions deck" << std::endl;
+    std::cout << "2. Historical Events deck" << std::endl;
+    std::cout << "3. Computer Science History deck" << std::endl;
+    std::cout << "4. Video Games deck" << std::endl;
+    std::cout << "5. Pop Culture deck" << std::endl;
+    std::cout << "6. Full deck (all categories)" << std::endl;
+    int getDeck;
+    std::cin >> getDeck;
+    
+    // Create Inventions deck
+    if (getDeck == 1)
+        createInventionDeck();
+    
+    // Create Historical Events deck
+    else if (getDeck == 2)
+        createHistoryDeck();
+    
+    // Create Comp Sci History deck
+    else if (getDeck == 3)
+        createCompSciDeck();
+    
+    // Create Video Games deck
+    else if (getDeck == 4)
+        createVideoGamesDeck();
+    
+    // Create Pop Culture deck
+    else if (getDeck == 5)
+        createPopDeck();
+    
+    // Create full deck
+    else
+        createDeck();
+    
+    // Next, shuffle deck
+    shuffleDeck();
+    
+    // Next, deal hand
+    dealHand();
+    
+    // Next, create pile from leftover deck
+    createPile();
+
+	// Next, draw card from pile and add to table
+	Card *drawn = drawPile(1);	// show situation #1 script
+	addTable(drawn, 0); // Adds drawn card at position 0
+	
+	// Loop until user wins or turns == 0
+	do
 	{
-		displayRules();
+		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
+
+		// Next, display table
+		displayTable();	
+		pressEnter();
+		
+		// Next, display hand -- basic implementation for now
+		displayHand();
 
 		// Next, draw card from pile and add to table
 		Card *drawn = drawPile(1);	// show situation #1 script
@@ -667,8 +931,6 @@ void GameEngine::displayHand()
 ******************************************************************************/
 void GameEngine::displayTable()
 {
-	cout << endl << CARDSONTABLE;
-
 	cout << "\t\t\t\t  CARD(S) ON THE TABLE:\n\n";
 	
 	for(unsigned i = 0; i < table.size(); i++)
@@ -718,4 +980,3 @@ void GameEngine::displayPile()
 		pile.pop();
 	}
 }
-
