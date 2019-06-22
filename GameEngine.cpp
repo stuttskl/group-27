@@ -601,7 +601,6 @@ bool GameEngine::validateInput(string pick, int min, unsigned max)
 void GameEngine::displayTitle()
 {
 	cout << TITLE;
-
 	pressEnter();
 }
 
