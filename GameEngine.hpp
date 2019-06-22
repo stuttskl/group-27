@@ -44,9 +44,9 @@ using std::srand;
 
 //#include "Menu.hpp"
 
-const int INIT_CARDS=150;		// Initial card count
-const int START_TURNS=20;	// Number turns start at
-const int INIT_HAND=15;		// Initial card count in hand -- should be 15 -- 2 for testing
+int INIT_CARDS=150;		// Initial card count
+int START_TURNS=12;	    // Number turns start at
+int INIT_HAND=7;		    // Initial card count in hand
 
 // Game Engine Class declaration
 class GameEngine
@@ -56,6 +56,7 @@ class GameEngine
 			choice;
 		bool hasWon = false;
 		Card** deck;	// Initial deck
+        Card * card;
 		vector <Card*> hand;	// Player's hand
 		vector <Card*> table;	// Cards on table
 		queue <Card*> pile;	// Cards to draw from
@@ -78,12 +79,12 @@ class GameEngine
 		bool getWon();
 
 		// Function to create cards
-		void createDeck();
-        	void createInventionDeck();
-        	void createHistoryDeck();
-        	void createCompSciDeck();
-        	void createVideoGameDeck();
-        	void createPopDeck();
+    void createDeck();
+    void createInventionDeck();
+    void createPopDeck();
+    void createHistoryDeck();
+    void createVideoGamesDeck();
+    void createCompSciDeck();
 
 		// Function that shuffles deck
 		void shuffleDeck();
