@@ -24,22 +24,36 @@ using std::stack;
 #include <vector>
 using std::vector;
 
-//#include <bits/stdc++.h>
+#include <utility>
 using std::swap;
 
+#include <iomanip>
+using std::setw;
+using std::left;
+/*
+#include <ctime>
+using std::time;
+
+#include <cstdlib>
+using std::rand;
+using std::srand;
+*/
 #include "Card.hpp"
+
+#include "Ascii.hpp"
 
 //#include "Menu.hpp"
 
-const int INIT_CARDS=5;		// Initial card count -- should be 150 -- 5 for testing
+const int INIT_CARDS=150;		// Initial card count
 const int START_TURNS=20;	// Number turns start at
-const int INIT_HAND=2;		// Initial card count in hand -- should be 15 -- 2 for testing
+const int INIT_HAND=15;		// Initial card count in hand -- should be 15 -- 2 for testing
 
 // Game Engine Class declaration
 class GameEngine
 {
 	private:
-		int turns;
+		int turns,
+			choice;
 		bool hasWon = false;
 		Card** deck;	// Initial deck
 		vector <Card*> hand;	// Player's hand
@@ -55,14 +69,21 @@ class GameEngine
 
 		// Setters
 		void setTurns(int turns);
+		void setChoice(int choice);
 		void setWon(bool won);
 
 		// Getters
 		int getTurns();
+		int getChoice();
 		bool getWon();
 
 		// Function to create cards
 		void createDeck();
+        	void createInventionDeck();
+        	void createHistoryDeck();
+        	void createCompSciDeck();
+        	void createVideoGameDeck();
+        	void createPopDeck();
 
 		// Function that shuffles deck
 		void shuffleDeck();
@@ -77,11 +98,21 @@ class GameEngine
 		void runGame();
 
 		// Function that draws card from pile
-		Card* drawPile();
+		Card* drawPile(int);
 
 		// Function that adds card to table at position
 		void addTable(Card*, int);
-		
+
+		// Function for user to press Enter
+		void pressEnter();
+
+		// Functions that plays hand or cards on table
+		Card* playHand();
+		Card* playTable(Card*);
+
+		// Functions that validate integer input
+		bool validateInput(string, int, unsigned);
+ 	
 		// Functions that displays title and rules
 		void displayTitle();
 		void displayRules();
