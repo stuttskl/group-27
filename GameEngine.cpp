@@ -5,6 +5,7 @@
 ** Description: GameEngine class implementation file.
 ******************************************************************************/
 #include "GameEngine.hpp"
+#include "inputValid.hpp"
 
 /******************************************************************************
 ** Description: Constructor
@@ -495,7 +496,9 @@ void GameEngine::runGame()
 
 	// First, display game title and rules
 	// Need to be implemented -- not written yet
-	displayTitle();	
+	displayTitle();
+	// add welcome menu
+	welcomeMenu();
 	displayRules();
     
     std::cout << "1. Inventions deck" << std::endl;
@@ -548,7 +551,7 @@ void GameEngine::runGame()
 	do
 	{
 		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
-    
+
 		// Next, display table
 		displayTable();	
 		pressEnter();
@@ -592,6 +595,13 @@ void GameEngine::runGame()
 	{
 		cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
 	}
+}
+
+int GameEngine::welcomeMenu()
+{
+    cout << "welcome please make your selection." << endl;
+    cout << "1. Play." << endl;
+    cout << "2. Quit." << endl;
 }
 
 /******************************************************************************
@@ -655,8 +665,8 @@ void GameEngine::pressEnter()
 {
 	// Have user press enter to continue
 	cout << "                                 Press Enter to Continue";
-	
-	cin.ignore();
+	getchar();
+//	cin.ignore();
 
 	cout << endl << endl;
 }
@@ -667,10 +677,18 @@ void GameEngine::pressEnter()
 Card* GameEngine::playHand()
 {
 	string cardToPlay = "";
+//    int cardToPlay = 0;
 	bool inputValid = false;	
 
 	// Ask user to choose card
 	cout << "\t\t\t    WHICH CARD WOULD YOU LIKE TO PLAY?" << endl;
+
+//    cardToPlay = getIntInput();
+//    while (cardToPlay <= 0 || cardToPlay > hand.size())
+//    {
+//        cout << "Please make a valid card selection." << endl;
+//        cardToPlay = getIntInput();
+//    }
 	
 	// Loop until correct input
 	do
