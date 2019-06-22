@@ -5,6 +5,7 @@
 ** Description: GameEngine class implementation file.
 ******************************************************************************/
 #include "GameEngine.hpp"
+#include "inputValid.hpp"
 
 /******************************************************************************
 ** Description: Constructor
@@ -404,8 +405,8 @@ void GameEngine::pressEnter()
 {
 	// Have user press enter to continue
 	cout << "                                 Press Enter to Continue";
-	
-	cin.ignore();
+	getchar();
+//	cin.ignore();
 
 	cout << endl << endl;
 }
@@ -416,10 +417,18 @@ void GameEngine::pressEnter()
 Card* GameEngine::playHand()
 {
 	string cardToPlay = "";
+//    int cardToPlay = 0;
 	bool inputValid = false;	
 
 	// Ask user to choose card
 	cout << "\t\t\t    WHICH CARD WOULD YOU LIKE TO PLAY?" << endl;
+
+//    cardToPlay = getIntInput();
+//    while (cardToPlay <= 0 || cardToPlay > hand.size())
+//    {
+//        cout << "Please make a valid card selection." << endl;
+//        cardToPlay = getIntInput();
+//    }
 	
 	// Loop until correct input
 	do
