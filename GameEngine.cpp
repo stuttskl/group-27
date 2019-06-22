@@ -288,7 +288,9 @@ void GameEngine::runGame()
 
 	// First, display game title and rules
 	// Need to be implemented -- not written yet
-	displayTitle();	
+	displayTitle();
+	// add welcome menu
+	welcomeMenu();
 	displayRules();
 
 	// Next, draw card from pile and add to table
@@ -342,6 +344,13 @@ void GameEngine::runGame()
 	{
 		cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
 	}
+}
+
+int GameEngine::welcomeMenu()
+{
+    cout << "welcome please make your selection." << endl;
+    cout << "1. Play." << endl;
+    cout << "2. Quit." << endl;
 }
 
 /******************************************************************************
