@@ -60,6 +60,9 @@ class GameEngine
 		int getTurns();
 		bool getWon();
 
+		// Function to create menu
+		void createMenus();
+
 		// Function to create cards
 		void createDeck();
         void createInventionDeck();

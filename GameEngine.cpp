@@ -18,11 +18,11 @@ GameEngine::GameEngine()
 	createDeck();
 
 	// Display deck at first -- for testing
-	cout << "Deck before shuffle: " << endl;
-	displayDeck();
+//	cout << "Deck before shuffle: " << endl;
+//	displayDeck();
 
 	// Next, shuffle deck
-	shuffleDeck();
+//	shuffleDeck();
 
 	// Next, deal hand
 	dealHand();
@@ -30,8 +30,6 @@ GameEngine::GameEngine()
 	// Next, create pile from leftover deck
 	createPile();
 
-	// Next, create Menus
-//	createMenus();
 }
 
 /******************************************************************************
@@ -270,19 +268,33 @@ void GameEngine::createPile()
 /******************************************************************************
 ** Description: Function that creates menus.
 ******************************************************************************/
-/*void GameEngine::createMenus()
+void GameEngine::createMenus()
 {
-	handMenu = new Menu(
+    displayHand();
+    int cardToPlay = 0;
+    cout << "Which card would you like to play?" << endl;
+    cin >> cardToPlay;
+    cout << "You entered " << cardToPlay << endl;
+//    cout << "You have " << hand.size() << " cards remaining." << endl;
+
+    // verifies that user is selecting a valid card
+    while (cardToPlay <= 0 || cardToPlay > hand.size())
+    {
+        cout << "Please select a valid card." << endl;
+        cin >> cardToPlay;
+    }
+
+
 }
-*/
+
 /******************************************************************************
 ** Description: Function to run game
 ******************************************************************************/
 void GameEngine::runGame()
 {
 	// Test display deck
-	cout << "Deck: " << endl;
-	displayDeck();
+//	cout << "Deck: " << endl;
+//	displayDeck();
 
 	// First, display game title and rules
 	// Need to be implemented -- not written yet
@@ -290,8 +302,8 @@ void GameEngine::runGame()
 	displayRules();
 
 	// Next, display hand -- basic implementation for now
-	cout << "Hand: " << endl;
-	displayHand();
+//	cout << "Hand: " << endl;
+//	displayHand();
 
 	// Next, draw card from pile, add to table, and display table
 	Card *drawn = drawPile();
@@ -299,7 +311,11 @@ void GameEngine::runGame()
 	cout << endl << "Cards on the table: " << endl;
 	displayTable();	
 
-	// Next, ask user which card they would like to play from hand 
+	// Next, ask user which card they would like to play from hand
+	createMenus();
+
+	// decrement turns
+	turns--;
 }
 
 /******************************************************************************
