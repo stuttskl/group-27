@@ -6,7 +6,6 @@
 ******************************************************************************/
 #include "GameEngine.hpp"
 #include "inputValid.hpp"
-#include <limits>
 
 /******************************************************************************
 ** Description: Constructor
@@ -530,15 +529,9 @@ void GameEngine::runGame()
 	displayTitle();
     
 	// add welcome menu
-//	int selection = welcomeMenu();
-//	while (selection <= 0 || selection > 2)
-//    {
-//	    cout << "Please make a valid selection." << endl;
-//	    selection = welcomeMenu();
-//    }
-//	if (selection == 1) {
-    displayRules();
-
+	//welcomeMenu();
+	displayRules();
+    
     std::cout << "Please choose your deck:\n" << std::endl;
     std::cout << "1. Inventions deck" << std::endl;
     std::cout << "2. Historical Events deck" << std::endl;
@@ -666,6 +659,13 @@ int GameEngine::welcomeMenu()
 
 }
 
+void GameEngine::welcomeMenu()
+{
+    cout << "Welcome to Timeline! Please make your selection." << endl;
+    cout << "1. Play." << endl;
+    cout << "2. Quit.\n" << endl;
+}
+
 /******************************************************************************
 ** Description: Function that draws from pile.
 ******************************************************************************/
@@ -740,6 +740,7 @@ Card* GameEngine::playHand()
 
 	// Ask user to choose card
 	cout << "\t\t\t    WHICH CARD WOULD YOU LIKE TO PLAY?" << endl;
+
 
 	// Loop until correct input
 	do
