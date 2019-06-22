@@ -297,6 +297,7 @@ void GameEngine::runGame()
 	// Loop until user wins or turns == 0
 	do
 	{
+		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
 		// Next, display table
 		displayTable();	
 		pressEnter();

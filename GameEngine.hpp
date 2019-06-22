@@ -45,8 +45,8 @@ using std::srand;
 //#include "Menu.hpp"
 
 const int INIT_CARDS=150;		// Initial card count
-const int START_TURNS=20;	// Number turns start at
-const int INIT_HAND=15;		// Initial card count in hand -- should be 15 -- 2 for testing
+const int START_TURNS=12;	// Number turns start at
+const int INIT_HAND=7;		// Initial card count in hand -- should be 15 -- 2 for testing
 
 // Game Engine Class declaration
 class GameEngine
