@@ -548,7 +548,6 @@ void GameEngine::runGame()
 	do
 	{
 		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
-    
 		// Next, display table
 		displayTable();	
 		pressEnter();
@@ -885,6 +884,8 @@ void GameEngine::displayHand()
 ******************************************************************************/
 void GameEngine::displayTable()
 {
+	//cout << endl << CARDSONTABLE;
+
 	cout << "\t\t\t\t  CARD(S) ON THE TABLE:\n\n";
 	
 	for(unsigned i = 0; i < table.size(); i++)
