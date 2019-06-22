@@ -5,6 +5,7 @@
 ** Description: GameEngine class implementation file.
 ******************************************************************************/
 #include "GameEngine.hpp"
+#include "inputValid.hpp"
 
 /******************************************************************************
 ** Description: Constructor
@@ -41,6 +42,10 @@ void GameEngine::setChoice(int choice)
 	this->choice = choice;
 }
 
+void GameEngine::setMode(int mode) {
+    this->mode = mode;
+}
+
 /******************************************************************************
 ** Description: Getters
 ******************************************************************************/
@@ -52,6 +57,10 @@ int GameEngine::getTurns()
 int GameEngine::getChoice()
 {
 	return choice;
+}
+
+int GameEngine::getMode() {
+    return mode;
 }
 
 /******************************************************************************
@@ -463,13 +472,36 @@ void GameEngine::shuffleDeck()
 /******************************************************************************
 ** Description: Function that deals hand.
 ******************************************************************************/
-void GameEngine::dealHand()
+void GameEngine::dealHand(int m)
 {
-	// Adds first INIT_HAND# of cards from deck into hand
-	for(int i = 0; i < INIT_HAND; i++)
-	{
-		hand.push_back(deck[i]);
-	}
+    mode = m;
+    // easy
+    if (mode == 1) {
+        setTurns(12);
+        INIT_HAND = 7;
+        for(int i = 0; i < INIT_HAND; i++)
+        {
+            hand.push_back(deck[i]);
+        }
+    }
+    // medium
+    else if (mode == 2) {
+        setTurns(17);
+        INIT_HAND = 12;
+        for(int i = 0; i < INIT_HAND; i++)
+        {
+            hand.push_back(deck[i]);
+        }
+    }
+    // hard
+    else {
+        setTurns(20);
+        INIT_HAND = 15;
+        for(int i = 0; i < INIT_HAND; i++)
+        {
+            hand.push_back(deck[i]);
+        }
+    }
 }
 
 /******************************************************************************
@@ -489,15 +521,14 @@ void GameEngine::createPile()
 ******************************************************************************/
 void GameEngine::runGame()
 {
-	// Test display deck
-//	cout << "Deck after shuffle: " << endl;
-//	displayDeck();
-
 	// First, display game title and rules
-	// Need to be implemented -- not written yet
-	displayTitle();	
+	displayTitle();
+    
+	// add welcome menu
+	//welcomeMenu();
 	displayRules();
     
+    std::cout << "Please choose your deck:\n" << std::endl;
     std::cout << "1. Inventions deck" << std::endl;
     std::cout << "2. Historical Events deck" << std::endl;
     std::cout << "3. Computer Science History deck" << std::endl;
@@ -534,8 +565,15 @@ void GameEngine::runGame()
     // Next, shuffle deck
     shuffleDeck();
     
+    cout << "Would you like to play on easy, medium, or hard mode?" << endl;
+    cout << "1. Easy (7 cards and 12 turns)" << endl;
+    cout << "2. Medium (12 cards and 17 turns)" << endl;
+    cout << "3. Hard (15 cards and 20 turns)" << endl;
+    int modeChoice;
+    std::cin >> modeChoice;
+    
     // Next, deal hand
-    dealHand();
+    dealHand(modeChoice);
     
     // Next, create pile from leftover deck
     createPile();
@@ -548,6 +586,7 @@ void GameEngine::runGame()
 	do
 	{
 		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
+
 		// Next, display table
 		displayTable();	
 		pressEnter();
@@ -591,6 +630,13 @@ void GameEngine::runGame()
 	{
 		cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
 	}
+}
+
+void GameEngine::welcomeMenu()
+{
+    cout << "Welcome to Timeline! Please make your selection." << endl;
+    cout << "1. Play." << endl;
+    cout << "2. Quit.\n" << endl;
 }
 
 /******************************************************************************
@@ -654,8 +700,8 @@ void GameEngine::pressEnter()
 {
 	// Have user press enter to continue
 	cout << "                                 Press Enter to Continue";
-	
-	cin.ignore();
+	getchar();
+//	cin.ignore();
 
 	cout << endl << endl;
 }
@@ -666,10 +712,18 @@ void GameEngine::pressEnter()
 Card* GameEngine::playHand()
 {
 	string cardToPlay = "";
+//    int cardToPlay = 0;
 	bool inputValid = false;	
 
 	// Ask user to choose card
 	cout << "\t\t\t    WHICH CARD WOULD YOU LIKE TO PLAY?" << endl;
+
+//    cardToPlay = getIntInput();
+//    while (cardToPlay <= 0 || cardToPlay > hand.size())
+//    {
+//        cout << "Please make a valid card selection." << endl;
+//        cardToPlay = getIntInput();
+//    }
 	
 	// Loop until correct input
 	do
@@ -860,6 +914,10 @@ void GameEngine::displayTitle()
 ******************************************************************************/
 void GameEngine::displayRules()
 {
+    cout << "                                   Welcome to Timeline!" << endl;
+    cout << "                 Your goal is to put all the cards in chronological order." << endl;
+    cout << "              But be careful! If you make a mistake, you'll have to draw a card." << endl;
+    cout << "                          And if you run out of turns, it's game over." << endl;
 }
 
 /******************************************************************************
@@ -884,8 +942,6 @@ void GameEngine::displayHand()
 ******************************************************************************/
 void GameEngine::displayTable()
 {
-	//cout << endl << CARDSONTABLE;
-
 	cout << "\t\t\t\t  CARD(S) ON THE TABLE:\n\n";
 	
 	for(unsigned i = 0; i < table.size(); i++)
