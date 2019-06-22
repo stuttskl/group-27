@@ -44,19 +44,17 @@ using std::srand;
 
 //#include "Menu.hpp"
 
-int INIT_CARDS=150;		// Initial card count
-int START_TURNS=12;	    // Number turns start at
-int INIT_HAND=7;		    // Initial card count in hand
-
 // Game Engine Class declaration
 class GameEngine
 {
 	private:
-		int turns,
-			choice;
+		int turns, choice;
+		int INIT_CARDS=150;		// Initial card count
+		int START_TURNS=12;	    // Number turns start at
+		int INIT_HAND=7;		    // Initial card count in hand
 		bool hasWon = false;
 		Card** deck;	// Initial deck
-        Card * card;
+        	Card * card;
 		vector <Card*> hand;	// Player's hand
 		vector <Card*> table;	// Cards on table
 		queue <Card*> pile;	// Cards to draw from
