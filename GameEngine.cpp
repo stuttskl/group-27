@@ -674,6 +674,7 @@ void GameEngine::runGame()
 		{
 			cout << "\n\n\t\t\t\tYOU DO NOT HAVE ANY MORE CARDS IN YOUR HAND.\n\n";
 			cout << "\n\n\t\t\t\t\tYOU HAVE WON!!!\n\n";
+			printFinalTimeline();
 			hasWon = 1;
 		}
 	}
@@ -683,6 +684,7 @@ void GameEngine::runGame()
 	if(hasWon == 0)
 	{
 		cout << "\n\n\t\t\t\tYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
+		printFinalTimeline();
 	}
 }
 
@@ -1093,7 +1095,6 @@ void GameEngine::displayTable()
 	{
 		cout << "\t" << left << i+1 << ". ";
 		table[i]->displayCard();
-		table[i]->displayCardYear();
 		cout << endl;
 	}
 	cout << endl << endl;
@@ -1136,4 +1137,19 @@ void GameEngine::displayPile()
 		// Pop off front
 		pile.pop();
 	}
+}
+
+void GameEngine::printFinalTimeline()
+{
+    cout << "YOUR FINAL TIMELINE IS: " << endl;
+    for(unsigned i = 0; i < table.size(); i++)
+    {
+        cout << "YEAR: ";
+        table[i]->displayCardYear();
+        cout << "EVENT: ";
+        table[i]->displayCard();
+        cout << endl;
+        cout << endl;
+    }
+    cout << endl << endl;
 }
