@@ -30,6 +30,8 @@ using std::swap;
 #include <iomanip>
 using std::setw;
 using std::left;
+
+#include <climits>
 /*
 #include <ctime>
 using std::time;
@@ -44,19 +46,17 @@ using std::srand;
 
 //#include "Menu.hpp"
 
-int INIT_CARDS=150;		// Initial card count
-int START_TURNS=12;	    // Number turns start at
-int INIT_HAND=7;		    // Initial card count in hand
-
 // Game Engine Class declaration
 class GameEngine
 {
 	private:
-		int turns,
-			choice;
+		int turns, choice, mode;
+		int INIT_CARDS=150;		// Initial card count
+		int START_TURNS=12;	    // Number turns start at
+		int INIT_HAND=7;		    // Initial card count in hand
 		bool hasWon = false;
 		Card** deck;	// Initial deck
-        Card * card;
+        	Card * card;
 		vector <Card*> hand;	// Player's hand
 		vector <Card*> table;	// Cards on table
 		queue <Card*> pile;	// Cards to draw from
@@ -72,25 +72,30 @@ class GameEngine
 		void setTurns(int turns);
 		void setChoice(int choice);
 		void setWon(bool won);
+		void setMode(int mode);
 
 		// Getters
 		int getTurns();
 		int getChoice();
 		bool getWon();
+		int getMode();
 
 		// Function to create cards
-        void createDeck();
-        void createInventionDeck();
-        void createPopDeck();
-        void createHistoryDeck();
-        void createVideoGamesDeck();
-        void createCompSciDeck();
+		void createDeck();
+		void createInventionDeck();
+		void createPopDeck();
+		void createHistoryDeck();
+		void createVideoGamesDeck();
+		void createCompSciDeck();
+
+		// Welcome Menu
+		int welcomeMenu();
 
 		// Function that shuffles deck
 		void shuffleDeck();
 
 		// Function to deal hand
-		void dealHand();
+		void dealHand(int m);
 
 		// Function to create pile
 		void createPile();

@@ -6,7 +6,6 @@
 ******************************************************************************/
 #include "GameEngine.hpp"
 #include "inputValid.hpp"
-#include <limits>
 
 /******************************************************************************
 ** Description: Constructor
@@ -16,6 +15,7 @@ GameEngine::GameEngine()
 	// First, set variables
 	setTurns(START_TURNS);	
 	setChoice(0);
+	setMode(0);
 }
 
 /******************************************************************************
@@ -43,8 +43,9 @@ void GameEngine::setChoice(int choice)
 	this->choice = choice;
 }
 
-void GameEngine::setMode(int mode) {
-    this->mode = mode;
+void GameEngine::setMode(int mode)
+{
+	this->mode = mode;
 }
 
 /******************************************************************************
@@ -60,8 +61,9 @@ int GameEngine::getChoice()
 	return choice;
 }
 
-int GameEngine::getMode() {
-    return mode;
+int GameEngine::getMode()
+{
+	return mode;
 }
 
 /******************************************************************************
@@ -69,6 +71,8 @@ int GameEngine::getMode() {
 ******************************************************************************/
 void GameEngine::createDeck()
 {
+	INIT_CARDS = 150;
+
 	deck = new Card* [INIT_CARDS];
 
 	// Initialize all to NULL
@@ -233,7 +237,8 @@ void GameEngine::createDeck()
 /******************************************************************************
  ** Description: Function that creates Invention deck.
  ******************************************************************************/
-void GameEngine::createInventionDeck() {
+void GameEngine::createInventionDeck() 
+{
     INIT_CARDS = 25;
     deck = new Card* [INIT_CARDS];
     
@@ -273,7 +278,8 @@ void GameEngine::createInventionDeck() {
 /******************************************************************************
  ** Description: Function that creates Historical Events deck.
  ******************************************************************************/
-void GameEngine::createHistoryDeck() {
+void GameEngine::createHistoryDeck() 
+{
     INIT_CARDS = 25;
     deck = new Card* [INIT_CARDS];
         
@@ -313,7 +319,8 @@ void GameEngine::createHistoryDeck() {
 /******************************************************************************
  ** Description: Function that creates Pop Culture deck.
  ******************************************************************************/
-void GameEngine::createPopDeck() {
+void GameEngine::createPopDeck() 
+{
     INIT_CARDS = 50;
     deck = new Card* [INIT_CARDS];
     
@@ -378,7 +385,8 @@ void GameEngine::createPopDeck() {
 /******************************************************************************
  ** Description: Function that creates Video Games deck.
  ******************************************************************************/
-void GameEngine::createVideoGamesDeck() {
+void GameEngine::createVideoGamesDeck() 
+{
     INIT_CARDS = 25;
     deck = new Card* [INIT_CARDS];
     
@@ -418,7 +426,8 @@ void GameEngine::createVideoGamesDeck() {
 /******************************************************************************
  ** Description: Function that creates Computer Science History deck.
  ******************************************************************************/
-void GameEngine::createCompSciDeck() {
+void GameEngine::createCompSciDeck() 
+{
     INIT_CARDS = 25;
     deck = new Card* [INIT_CARDS];
     
@@ -475,35 +484,51 @@ void GameEngine::shuffleDeck()
 ******************************************************************************/
 void GameEngine::dealHand(int m)
 {
-    mode = m;
-    // easy
-    if (mode == 1) {
-        setTurns(12);
-        INIT_HAND = 7;
-        for(int i = 0; i < INIT_HAND; i++)
-        {
-            hand.push_back(deck[i]);
-        }
-    }
-    // medium
-    else if (mode == 2) {
-        setTurns(17);
-        INIT_HAND = 12;
-        for(int i = 0; i < INIT_HAND; i++)
-        {
-            hand.push_back(deck[i]);
-        }
-    }
-    // hard
-    else {
-        setTurns(20);
-        INIT_HAND = 15;
-        for(int i = 0; i < INIT_HAND; i++)
-        {
-            hand.push_back(deck[i]);
-        }
-    }
+	mode = m;
+
+	// Easy
+	if(mode == 1)
+	{
+		setTurns(12);
+		INIT_HAND = 7;
+
+		for(int i = 0; i < INIT_HAND; i++)
+		{
+			hand.push_back(deck[i]);
+		}
+	}
+
+	// Medium
+	else if(mode == 2)
+	{
+		setTurns(17);
+		INIT_HAND = 12;
+		
+		for(int i = 0; i < INIT_HAND; i++)
+		{
+			hand.push_back(deck[i]);
+		}
+	}
+
+	// Hard
+	else
+	{
+		setTurns(20);
+		INIT_HAND = 15;
+
+		for(int i = 0; i < INIT_HAND; i++)
+		{
+			hand.push_back(deck[i]);
+		}
+	}
 }
+/*
+	// Adds first INIT_HAND# of cards from deck into hand
+	for(int i = 0; i < INIT_HAND; i++)
+	{
+		hand.push_back(deck[i]);
+	}
+*/
 
 /******************************************************************************
 ** Description: Function that creates pile from deck -- after hand has been 
@@ -522,62 +547,89 @@ void GameEngine::createPile()
 ******************************************************************************/
 void GameEngine::runGame()
 {
+	bool inputValid = false;
+	// Test display deck
+//	cout << "Deck after shuffle: " << endl;
+//	displayDeck();
+
 	// First, display game title and rules
-	displayTitle();
-    
-	// add welcome menu
-	//welcomeMenu();
+	// Need to be implemented -- not written yet
+	displayTitle();	
 	displayRules();
     
-    std::cout << "Please choose your deck:\n" << std::endl;
-    std::cout << "1. Inventions deck" << std::endl;
-    std::cout << "2. Historical Events deck" << std::endl;
-    std::cout << "3. Computer Science History deck" << std::endl;
-    std::cout << "4. Video Games deck" << std::endl;
-    std::cout << "5. Pop Culture deck" << std::endl;
-    std::cout << "6. Full deck (all categories)" << std::endl;
-    int getDeck;
-    std::cin >> getDeck;
-    
-    // Create Inventions deck
-    if (getDeck == 1)
-        createInventionDeck();
-    
-    // Create Historical Events deck
-    else if (getDeck == 2)
-        createHistoryDeck();
-    
-    // Create Comp Sci History deck
-    else if (getDeck == 3)
-        createCompSciDeck();
-    
-    // Create Video Games deck
-    else if (getDeck == 4)
-        createVideoGamesDeck();
-    
-    // Create Pop Culture deck
-    else if (getDeck == 5)
-        createPopDeck();
-    
-    // Create full deck
-    else
-        createDeck();
-    
-    // Next, shuffle deck
-    shuffleDeck();
-    
-    cout << "Would you like to play on easy, medium, or hard mode?" << endl;
-    cout << "1. Easy (7 cards and 12 turns)" << endl;
-    cout << "2. Medium (12 cards and 17 turns)" << endl;
-    cout << "3. Hard (15 cards and 20 turns)" << endl;
-    int modeChoice;
-    std::cin >> modeChoice;
-    
-    // Next, deal hand
-    dealHand(modeChoice);
-    
-    // Next, create pile from leftover deck
-    createPile();
+	cout << "\t\t       PLEASE CHOOSE FROM ONE OF THE FOLLOWING DECKS:\n" << endl;
+	std::cout << "\t\t\t\t1. Inventions" << std::endl;
+	std::cout << "\t\t\t\t2. Historical Events" << std::endl;
+	std::cout << "\t\t\t\t3. Computer Science History" << std::endl;
+	std::cout << "\t\t\t\t4. Video Games" << std::endl;
+	std::cout << "\t\t\t\t5. Pop Culture" << std::endl;
+	std::cout << "\t\t\t\t6. Full deck (all categories)" << std::endl;
+
+	string getDeck = "";
+
+	cout << "\n\t\t\t\tChoice: ";
+		
+	// Loop until correct input
+	do
+	{
+		getline(cin, getDeck);
+		inputValid = validateInput(getDeck, 1, (unsigned)6);
+	}
+	while(!inputValid);
+
+	// Reset inputValid
+	inputValid = false;
+
+	// Create Inventions deck
+	if (choice == 1)
+	createInventionDeck();
+
+	// Create Historical Events deck
+	else if (choice == 2)
+	createHistoryDeck();
+
+	// Create Comp Sci History deck
+	else if (choice == 3)
+	createCompSciDeck();
+
+	// Create Video Games deck
+	else if (choice == 4)
+	createVideoGamesDeck();
+
+	// Create Pop Culture deck
+	else if (choice == 5)
+	createPopDeck();
+
+	// Create full deck
+	else
+	createDeck();
+
+	// Next, shuffle deck
+	shuffleDeck();
+
+	// Ask user what mode they'd like to play
+	cout << "\n\n\t\t   WOULD YOU LIKE TO PLAY ON EASY, MEDIUM, OR HARD MODE?\n" << endl;
+	cout << "\t\t\t\t1. Easy (7 cards and 12 turns)" << endl;
+	cout << "\t\t\t\t2. Medium (12 cards and 17 turns)" << endl;
+	cout << "\t\t\t\t3. Hard (15 cards and 20 turns)" << endl;
+
+	string modeChoice = "";
+
+	cout << "\n\t\t\t\tChoice: ";
+
+	// Loop until correct input
+	do
+	{
+		getline(cin, modeChoice);
+		inputValid = validateInput(modeChoice, 1, (unsigned)3);
+	}
+	while(!inputValid);
+
+	// Next, deal hand
+	dealHand(choice);
+
+	// Next, create pile from leftover deck
+	createPile();
 
 	// Next, draw card from pile and add to table
 	Card *drawn = drawPile(1);	// show situation #1 script
@@ -586,7 +638,8 @@ void GameEngine::runGame()
 	// Loop until user wins or turns == 0
 	do
 	{
-		cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
+		// Let user know remaining turns
+		cout << "\n\t\t\t    ║ YOU HAVE " << turns << " TURNS REMAINING. ║\n" << endl;
 
 		// Next, display table
 		displayTable();	
@@ -595,89 +648,62 @@ void GameEngine::runGame()
 		// Next, display hand -- basic implementation for now
 		displayHand();
 
-		// Next, draw card from pile and add to table
-		Card *drawn = drawPile(1);	// show situation #1 script
-		addTable(drawn, 0); // Adds drawn card at position 0
+		// Next, play hand -- returns card player chooses to play
+		Card *cardInPlay = playHand();
 
-		// Loop until user wins or turns == 0
-		do
+		// Next, display table again and ask user where to place card
+		displayTable();
+		Card *returned = playTable(cardInPlay);
+
+		// Determine if a card was drawn from table or not
+		if(returned == NULL)
 		{
-			cout << "\t\t\t\t\t\t\t\tYOU HAVE " << turns << " TURNS REMAINING." << endl;
-			// Next, display table
-			displayTable();
-			pressEnter();
-
-			// Next, display hand -- basic implementation for now
-			displayHand();
-
-			// Next, play hand -- returns card player chooses to play
-			Card *cardInPlay = playHand();
-
-			// Next, display table again and ask user where to place card
-			displayTable();
-			Card *returned = playTable(cardInPlay);
-
-			// Determine if a card was drawn from table or not
-			if(returned == NULL)
-			{
-				// Do nothing, continue to end of do, while loop
-			}
-			else
-			{
-				// Card was drawn so add card to hand
-				hand.push_back(returned);
-			}
-
-
-			// decrement turns
-			turns--;
-
-			// Determine if player won by not having any cards
-			if(hand.size() <= 0)
-			{
-				cout << "\n\nYOU DO NOT HAVE ANY MORE CARDS IN YOUR HAND.\n\n";
-				cout << "\n\nYOU HAVE WON!!!\n\n";
-				hasWon = 1;
-			}
+			// Do nothing, continue to end of do, while loop
 		}
-		while((turns > 0) && (hasWon == 0));
-
-		// If user lost
-		if(hasWon == 0)
+		else
 		{
-			cout << "\n\nYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
+			// Card was drawn so add card to hand
+			hand.push_back(returned);
+		}
+
+		// decrement turns
+		turns--;
+
+		// Determine if player won by not having any cards
+		if(hand.size() <= 0)
+		{
+			cout << "\n\n\t\t\t\tYOU DO NOT HAVE ANY MORE CARDS IN YOUR HAND.\n\n";
+			cout << "\n\n\t\t\t\t\tYOU HAVE WON!!!\n\n";
+			hasWon = 1;
 		}
 	}
-	if (selection == 2)
+	while((turns > 0) && (hasWon == 0));
+
+	// If user lost
+	if(hasWon == 0)
 	{
-		cout << "QUIT " << endl;
+		cout << "\n\n\t\t\t\tYOU HAVE RUN OUT OF TIME. GAME OVER!\n\n";
 	}
-
-
-
 }
 
-
 /******************************************************************************
-** Description: Function to run game
+** Description: Function that displays Welcome Menu.
 ******************************************************************************/
 int GameEngine::welcomeMenu()
 {
 	cout << "\t\t\tWELCOME. PLEASE MAKE YOUR SELECTION TO BEGIN THE GAME." << endl;
-
-
-    cout << "\t\t\t\t\t1. PLAY." << endl;
-    cout << "\t\t\t\t\t2. QUIT." << endl;
+	cout << "\t\t\t\t\t1. PLAY." << endl;
+	cout << "\t\t\t\t\t2. QUIT." << endl;
 
 	int selection = getIntInput();
-	while (selection <= 0 || selection > 2)
+
+	while(selection <= 0 || selection > 2)
 	{
 		cout << "Please enter a valid selection." << endl;
 		selection = getIntInput();
 	}
 
 	return selection;
-
 }
 
 /******************************************************************************
@@ -685,6 +711,75 @@ int GameEngine::welcomeMenu()
 ******************************************************************************/
 Card* GameEngine::drawPile(int situation)
 {
+	// First check if pile is empty
+	if(pile.size() == 0) 	// if empty
+	{
+		Card *temp = NULL;
+
+		// Then reshuffle the discard into the pile
+		// But if the discard is also empty
+		if(discard.empty())
+		{
+			// Let user know there are no more cards. Losing condition
+			cout << "\n\n\t\t\t\tTHERE ARE NO MORE CARDS TO PLAY.\n\n";
+			hasWon = false;
+			return temp;	// return NULL Card
+		}
+		else // If discard is not empty
+		{
+			// Put cards in discard into an array of same size as discard
+			// First, delete current deck and create a new deck
+			for(int i = 0; i < INIT_CARDS; i++)
+			{
+				if(deck[i])
+					delete deck[i];
+			}
+			delete []deck;
+			deck = NULL;
+
+			// Change INIT_SIZE
+			INIT_CARDS = discard.size();
+
+			// Now reassign deck with new size
+			deck = new Card*[INIT_CARDS];
+
+			// Initialize array
+			for(int i = 0; i < INIT_CARDS; i++)
+			{
+				deck[i] = NULL;
+			}
+
+			// Populate array with discard cards
+			for(int i = 0; i < INIT_CARDS; i++)
+			{
+				if(!discard.empty())
+				{
+					// Take Cards from top of discard
+					temp = discard.top();
+					
+					if(temp != NULL)
+					{
+						deck[i] = new Card(*temp);
+
+						// Delete from discard
+						discard.pop();
+					}
+				}
+			}
+
+			// Shuffle deck
+			shuffleDeck();
+
+			// Put shuffled deck into pile
+			for(int i = 0; i < INIT_CARDS; i++)
+			{
+				pile.push(deck[i]);
+			} 
+
+			// Do not return from function, go to next part of function
+		}
+	}
+
 	// Store card on top of pile
 	Card *top = pile.front();
 	Card *copy = new Card(*top);
@@ -692,18 +787,18 @@ Card* GameEngine::drawPile(int situation)
 	// Display situation #1 script -- dealer draws card
 	if(situation == 1)
 	{	
-		cout << "\t\t     THE DEALER DRAWS A CARD FROM THE DECK. IT READS: " << endl << endl;
+		cout << "\n\n\n\t\t      THE DEALER DRAWS A CARD FROM THE DECK. IT READS: " << endl << endl;
 		cout << "\t  ";
 		top->displayCard();
-		cout << endl << endl << "\t\t\tTHE DEALER PLACES THE CARD ON THE TABLE." << endl << endl;
+		cout << endl << endl << "\t\t\t  THE DEALER PLACES THE CARD ON THE TABLE.\n\n" << endl << endl;
 		pressEnter();
 	}
 	else // Display situation #2 script -- player draws card
 	{	
-		cout << "\t\t     YOU DRAW A CARD FROM THE DECK. IT READS: " << endl << endl;
+		cout << "\t\t\t YOU DRAW A CARD FROM THE DECK. IT READS: " << endl << endl;
 		cout << "\t  ";
 		top->displayCard();
-		cout << endl << endl << "\t\t\tYOU PUT THE CARD IN YOUR HAND." << endl << endl;
+		cout << endl << endl << "\t\t\t\tYOU PUT THE CARD IN YOUR HAND." << endl << endl << endl;
 		pressEnter();
 	}
 
@@ -741,7 +836,11 @@ void GameEngine::pressEnter()
 {
 	// Have user press enter to continue
 	cout << "                                 Press Enter to Continue";
-	cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+
+	cin.ignore(INT_MAX, '\n');
+	cin.clear();
+
+	cout << endl << endl;
 }
 
 /******************************************************************************
@@ -750,11 +849,11 @@ void GameEngine::pressEnter()
 Card* GameEngine::playHand()
 {
 	string cardToPlay = "";
-	bool inputValid = false;
+	bool inputValid = false;	
 
 	// Ask user to choose card
-	cout << "\t\t\t    WHICH CARD WOULD YOU LIKE TO PLAY?" << endl;
-
+	cout << "\t\t\t    WHICH CARD WOULD YOU LIKE TO PLAY? ";
+	
 	// Loop until correct input
 	do
 	{
@@ -764,7 +863,7 @@ Card* GameEngine::playHand()
 	while(!inputValid);
 
 	// Let user know which card they chose
-	cout << "\n\t\t\t\t      CARD IN PLAY:\n\n";
+	cout << "\n\n\t\t\t\t      CARD IN PLAY:\n\n";
 	cout << "\t  ";
 	hand[choice-1]->displayCard();	// index = choice - 1
 	cout << endl << endl;
@@ -788,50 +887,27 @@ Card* GameEngine::playTable(Card* played)
 	bool inputValid = false;
 	int tableIndex = 0;	// Store index for chosen card on table
 
-	// First, ask user which card on the table the player would like to 
-	// place their card in hand next to
-	cout << "\t\t\t PLEASE CHOOSE A CARD ON THE TABLE TO PLACE CARD IN HAND NEXT TO:\n\n";
+	// First, ask the user at what position they'd like to place card in hand
+	// on the table.
+	cout << "\t\tWHERE ON THE TABLE WOULD YOU LIKE TO PLACE THE CURRENT CARD?\n";
+
+	// Let user know their choices
+	cout << "\t\t\t\t  (Position# 1 - " << (int)table.size() + 1 << "): ";
 
 	// Validate that card exists, loop until correct input
 	do
 	{
 		getline(cin, cardToPlay);
-		inputValid = validateInput(cardToPlay, 1, table.size());
+		inputValid = validateInput(cardToPlay, 1, table.size()+(unsigned)1);
 	}
 	while(!inputValid);
 
 	// Store index for chosen card on table
 	tableIndex = choice - 1;
-
-	// Let user know which card they chose
-	cout << "\t\t\t CARD ON TABLE:\n\n";
-	cout << "\t  ";
-	table[tableIndex]->displayCard();
-	cout << endl << endl;
-
-	// Display card in hand again
-	cout << "\t\t\t CARD IN HAND:\n\n";
-	cout << "\t   ";
-	played->displayCard();
-	cout << endl << endl;	
-
-	// Next, ask user if card in hand should be placed before or after
-	// card on table
-	cout << "\t\t\t WOULD YOU LIKE TO PLACE THE CARD IN HAND BEFORE OR AFTER THE CARD ON THE TABLE?\n\n";
-	cout << "1. Before\n";
-	cout << "2. After\n";
-
-	// Loop until input is between 1-2
-	do
-	{
-		getline(cin, cardToPlay);
-		inputValid = validateInput(cardToPlay, 1, 2);
-	}
-	while(!inputValid);
-
-	// Determine if player placed card in correct chronological order 
-	// If player chose 1. Before
-	if(choice == 1)
+	
+	// Determine if player placed card in correct chronological order
+	// First determine if player's choice is the first table card or the last table card
+	if(tableIndex == 0)	// Player's choice is first table card
 	{
 		// Did card in hand occur before card on table?
 		// Correct condition
@@ -840,15 +916,18 @@ Card* GameEngine::playTable(Card* played)
 			// Insert card in table vector before card on table
 			auto it = table.begin() + tableIndex;
 			table.insert(it, played);
-			cout << "\n\n YOU HAVE PLACED THE CARD IN THE CORRECT CHRONOLOGICAL ORDER.\n\n";
+			cout << "\n\n\t\t\t YOU HAVE PLACED THE CARD IN THE CORRECT ORDER.\n";
 			return NULL;
 		}
 		else	// Incorrect condition
 		{
 			// Let user know incorrect choice
-			cout << "\n\n CARD IN HAND DOES NOT OCCUR BEFORE THE EVENT. CARD IS DISCARDED.\n\n";
-			cout << "\n\n YOU MUST DRAW A NEW CARD FROM THE DECK.\n\n";			
+			cout << "\n\n\t\t    INCORRECT CHRONOLOGICAL ORDER. CARD IS DISCARDED.\n\n";
+			cout << "\n\n\t\t\t YOU MUST DRAW A NEW CARD FROM THE DECK.\n\n";			
 			pressEnter();
+
+			// Put played card into discard
+			discard.push(played);
 
 			// Draw card
 			Card* drawn = drawPile(2);	// Show situation #2 script
@@ -857,24 +936,55 @@ Card* GameEngine::playTable(Card* played)
 			return drawn;
 		}
 	}
-	else // If player chose 2. after
+	else if(tableIndex == (int)table.size()) // Player's choice is last table card
 	{
 		// Did card in hand occur after card on table?
 		// Correct condition
-		if(played->getYear() >= table[tableIndex]->getYear())
+		if(played->getYear() >= table[tableIndex-1]->getYear())
 		{
 			// Insert card in table vector after card on table
-			auto it = table.begin() + (tableIndex + 1);
-			table.insert(it, played);
-			cout << "\n\n YOU HAVE PLACED THE CARD IN THE CORRECT CHRONOLOGICAL ORDER.\n\n";
+			table.push_back(played);
+			cout << "\n\n\t\t\t YOU HAVE PLACED THE CARD IN THE CORRECT ORDER.\n\n";
 			return NULL;
 		}
 		else	// Incorrect condition
 		{
 			// Let user know incorrect choice
-			cout << "\n\n CARD IN HAND DOES NOT OCCUR AFTER THE EVENT. CARD IS DISCARDED.\n\n";
-			cout << "\n\n YOU MUST DRAW A NEW CARD FROM THE DECK.\n\n";			
+			cout << "\n\n\t\t    INCORRECT CHRONOLOGICAL ORDER. CARD IS DISCARDED.\n\n";
+			cout << "\n\n\t\t\t YOU MUST DRAW A NEW CARD FROM THE DECK.\n\n";			
 			pressEnter();
+
+			// Put played card into discard
+			discard.push(played);
+
+			// Draw card
+			Card* drawn = drawPile(2);	// Show situation #2 script
+
+			// Return drawn card
+			return drawn;
+		}
+	}
+	else	// Player's choice is between cards
+	{
+		// Did card in hand occur between cards on table?
+		// Correct condition
+		if((played->getYear() >= table[tableIndex-1]->getYear()) && (played->getYear() <= table[tableIndex]->getYear()))
+		{
+			// Insert card in table vector in between existing cards
+			auto it = table.begin() + tableIndex;
+			table.insert(it, played);
+			cout << "\n\n\t\t\t YOU HAVE PLACED THE CARD IN THE CORRECT ORDER.\n\n";
+			return NULL;
+		}
+		else	// Incorrect condition
+		{
+			// Let user know incorrect choice
+			cout << "\n\n\t\t    INCORRECT CHRONOLOGICAL ORDER. CARD IS DISCARDED.\n\n";
+			cout << "\n\t\t\t YOU MUST DRAW A NEW CARD FROM THE DECK.\n\n";			
+			pressEnter();
+
+			// Put played card into discard
+			discard.push(played);
 
 			// Draw card
 			Card* drawn = drawPile(2);	// Show situation #2 script
@@ -884,6 +994,7 @@ Card* GameEngine::playTable(Card* played)
 		}
 	}
 }
+
 
 /******************************************************************************
 ** Description: Function that validates integer input.
@@ -901,7 +1012,7 @@ bool GameEngine::validateInput(string pick, int min, unsigned max)
 	for(unsigned int i = 0; i < pick.size(); i++)
 	{
 		char temp = ' ';	// temp holder for chars in string
-
+		
 		temp = pick.at(i);
 
 		// If not a number
@@ -917,7 +1028,7 @@ bool GameEngine::validateInput(string pick, int min, unsigned max)
 
 	// static_cast max into int
 	int maxCast = static_cast<int>(max);
-
+		
 	// Now, see if data is not between min and max
 	if(!((tempInt >= min) && (tempInt <= maxCast)))
 	{
@@ -936,6 +1047,7 @@ bool GameEngine::validateInput(string pick, int min, unsigned max)
 void GameEngine::displayTitle()
 {
 	cout << TITLE;
+	pressEnter();
 }
 
 /******************************************************************************
@@ -943,10 +1055,12 @@ void GameEngine::displayTitle()
 ******************************************************************************/
 void GameEngine::displayRules()
 {
-    cout << "                                   Welcome to Timeline!" << endl;
-    cout << "                 Your goal is to put all the cards in chronological order." << endl;
-    cout << "              But be careful! If you make a mistake, you'll have to draw a card." << endl;
-    cout << "                          And if you run out of turns, it's game over." << endl;
+	cout << "                                   Welcome to Timeline!" << endl;	
+	cout << "                 Your goal is to put all the cards in chronological order." << endl;	
+	cout << "              But be careful! If you make a mistake, you'll have to draw a card." << endl;	
+	cout << "                          And if you run out of turns, it's game over." << endl;
+	cout << "\n\n";
+	pressEnter();
 }
 
 /******************************************************************************
@@ -971,7 +1085,9 @@ void GameEngine::displayHand()
 ******************************************************************************/
 void GameEngine::displayTable()
 {
-	cout << "\t\t\t\t  CARD(S) ON THE TABLE:\n\n";
+	//cout << endl << CARDSONTABLE;
+
+	cout << "\n\t\t\t\t  CARD(S) ON THE TABLE:\n\n";
 	
 	for(unsigned i = 0; i < table.size(); i++)
 	{
@@ -980,7 +1096,7 @@ void GameEngine::displayTable()
 		table[i]->displayCardYear();
 		cout << endl;
 	}
-	cout << endl;
+	cout << endl << endl;
 }
 
 /******************************************************************************
