@@ -7,12 +7,12 @@
 #ifndef CARD_HPP
 #define CARD_HPP
 
-#include <string>
-using std::string;
-
 #include <iostream>
 using std::cout;
 using std::endl;
+
+#include <string>
+using std::string;
 
 // Card class declaration (Node)
 class Card{

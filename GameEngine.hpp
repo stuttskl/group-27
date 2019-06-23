@@ -32,19 +32,13 @@ using std::setw;
 using std::left;
 
 #include <climits>
-/*
-#include <ctime>
-using std::time;
 
-#include <cstdlib>
-using std::rand;
-using std::srand;
-*/
+#include <algorithm>
+using std::shuffle;
+
 #include "Card.hpp"
 
 #include "Ascii.hpp"
-
-//#include "Menu.hpp"
 
 // Game Engine Class declaration
 class GameEngine
@@ -129,6 +123,9 @@ class GameEngine
 		// Function that displays table cards
 		void displayTable();
 
+		// Function that displays end
+		void displayEnd();
+		
 		// Function that displays deck -- testing function
 		void displayDeck();
 
