@@ -48,5 +48,6 @@ class Card{
 
 		// Displays card
 		void displayCard();	// Displays card description
+		void displayCardYear();
 };
 #endif

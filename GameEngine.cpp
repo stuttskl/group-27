@@ -977,6 +977,7 @@ void GameEngine::displayTable()
 	{
 		cout << "\t" << left << i+1 << ". ";
 		table[i]->displayCard();
+		table[i]->displayCardYear();
 		cout << endl;
 	}
 	cout << endl;
