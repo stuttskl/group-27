@@ -1,5 +1,5 @@
 # TIMELINE
-#### A game by April Castenda, Victoria Fisher and Katie Stutts
+#### A game by April Castaneda, Victoria Fisher and Katie Stutts
 
 ![title](title.png)
 
