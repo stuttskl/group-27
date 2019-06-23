@@ -117,3 +117,8 @@ void Card::displayCard()
 {
 	cout << description;
 }
+
+void Card::displayCardYear()
+{
+	cout << year << endl;
+}

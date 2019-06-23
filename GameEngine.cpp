@@ -713,6 +713,7 @@ void GameEngine::runGame()
 			cout << "\t\t\t\t    YOU HAVE WON!!!\n\n";
 			cout << WINNER;
 			cout << BOTTOMBORDER;
+
 			hasWon = 1;
 		}
 	}
@@ -724,6 +725,7 @@ void GameEngine::runGame()
 		cout << TOPBORDER;
 		cout << "\t\t\t   YOU HAVE RUN OUT OF TIME. GAME OVER!\n";
 		cout << BOTTOMBORDER;
+
 	}
 	
 	pressEnter();
@@ -1191,4 +1193,19 @@ void GameEngine::displayPile()
 		// Pop off front
 		pile.pop();
 	}
+}
+
+void GameEngine::printFinalTimeline()
+{
+    cout << "YOUR FINAL TIMELINE IS: " << endl;
+    for(unsigned i = 0; i < table.size(); i++)
+    {
+        cout << "YEAR: ";
+        table[i]->displayCardYear();
+        cout << "EVENT: ";
+        table[i]->displayCard();
+        cout << endl;
+        cout << endl;
+    }
+    cout << endl << endl;
 }

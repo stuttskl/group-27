@@ -131,5 +131,8 @@ class GameEngine
 
 		// Function that displays pile -- testing function
 		void displayPile();
+
+		// Function that prints final timeline to user
+		void printFinalTimeline();
 };
 #endif
