@@ -730,7 +730,6 @@ void GameEngine::runGame()
 
 	}
 	
-	pressEnter();
 
 	// Display end
 	displayEnd();
@@ -1154,7 +1153,6 @@ void GameEngine::displayEnd()
 	cout << "\n\t\t\t     THANK YOU FOR PLAYING OUR GAME!\n\n";
 	cout << "\n\t\t\t\t\t\t\t  -- Group 27\n\n";
 	
-	pressEnter();
 }
 
 
@@ -1210,4 +1208,5 @@ void GameEngine::printFinalTimeline()
         cout << endl;
     }
     cout << endl << endl;
+	pressEnter();
 }
